@@ -1,0 +1,15 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: fakebook-auth
+  labels:
+    app: fakebook-auth
+    role: db
+spec:
+  storageClassName: default
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
