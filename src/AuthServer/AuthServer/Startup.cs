@@ -49,6 +49,7 @@ namespace AuthServer
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddAspNetIdentity<AppUser>();
 
             services.AddTransient<IProfileService, IdentityClaimsProfileService>();

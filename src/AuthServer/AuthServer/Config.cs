@@ -26,6 +26,14 @@ namespace AuthServer
             };
         }
 
+        public static IEnumerable<ApiScope> GetApiScopes()
+        {
+            return new List<ApiScope>
+            {
+                new ApiScope("api.read")
+            };
+        }
+
         public static IEnumerable<Client> GetClients()
         {
             return new[]
