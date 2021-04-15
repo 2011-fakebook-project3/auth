@@ -3,6 +3,7 @@ using AuthServer.Infrastructure.Data.Identity;
 using AuthServer.Infrastructure.Services;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -86,6 +87,13 @@ namespace AuthServer
                         await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
                     }
                 });
+            });
+
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = HttpOnlyPolicy.None,
+                MinimumSameSitePolicy = SameSiteMode.None,
+                Secure = CookieSecurePolicy.Always
             });
 
             var serilog = new LoggerConfiguration()
