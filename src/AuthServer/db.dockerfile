@@ -15,7 +15,16 @@ RUN dotnet tool restore
 COPY . ./
 
 # generate SQL script from migrations
-RUN dotnet ef migrations script -p AuthServer.Infrastructure -s AuthServer -o ../init-db.sql -i
+RUN dotnet ef migrations script \
+    -c AppIdentityDbContext \
+    -p AuthServer.Infrastructure \
+    -s AuthServer \
+    -o ../init-app-db.sql -i
+RUN dotnet ef migrations script \
+    -c PersistedGrantDbContext \
+    -p AuthServer.Infrastructure \
+    -s AuthServer \
+    -o ../init-grant-db.sql -i
 
 FROM postgres:13.2-alpine AS runtime
 
@@ -23,4 +32,4 @@ WORKDIR /docker-entrypoint-initdb.d
 
 ENV POSTGRES_PASSWORD Pass@word
 
-COPY --from=build /app/init-db.sql .
+COPY --from=build /app/*.sql .

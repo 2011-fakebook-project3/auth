@@ -13,7 +13,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  targetSolution: AuthServer
+  targetSolution: src/AuthServer
 
 stages:
 - stage: analyze
