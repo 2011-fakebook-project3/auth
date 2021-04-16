@@ -8,7 +8,7 @@
 services:
   db:
     build:
-      context: ./Fakebook.Auth
+      context: ./src/AuthServer
       dockerfile: db.dockerfile
     image: fakebookauth-db:latest
     ports:
