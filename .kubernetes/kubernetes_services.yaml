@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fakebook-auth-api
+  labels:
+    app: fakebook-auth
+    role: api
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: fakebook-auth
+    role: api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fakebook-auth-db
+  labels:
+    app: fakebook-auth
+    role: db
+spec:
+  ports:
+  - port: 5432
+  selector:
+    app: fakebook-auth
+    role: db
