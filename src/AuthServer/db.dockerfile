@@ -32,4 +32,4 @@ WORKDIR /docker-entrypoint-initdb.d
 
 ENV POSTGRES_PASSWORD Pass@word
 
-COPY --from=build /app/*.sql .
+COPY --from=build /app/*.sql ./
