@@ -120,7 +120,7 @@ namespace AuthServer.Controllers
                 if (model.ScopesConsented != null && model.ScopesConsented.Any())
                 {
                     var scopes = model.ScopesConsented;
-                    if (ConsentOptions.EnableOfflineAccess == false)
+                    if (!ConsentOptions.EnableOfflineAccess)
                     {
                         scopes = scopes.Where(x => x != IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess);
                     }
@@ -132,7 +132,14 @@ namespace AuthServer.Controllers
                     };
 
                     // emit event
-                    await _events.RaiseAsync(new ConsentGrantedEvent(User.GetSubjectId(), request.Client.ClientId, request.ValidatedResources.RawScopeValues, grantedConsent.ScopesValuesConsented, grantedConsent.RememberConsent));
+                    await _events.RaiseAsync(
+                        new ConsentGrantedEvent(
+                            User.GetSubjectId(), 
+                            request.Client.ClientId, 
+                            request.ValidatedResources.RawScopeValues, 
+                            grantedConsent.ScopesValuesConsented, 
+                            grantedConsent.RememberConsent
+                        ));
                 }
                 else
                 {
