@@ -2,6 +2,9 @@
 {
     public static class Roles
     {
-        public const string Consumer = "consumer";
+        public static string Consumer
+        {
+            get { return "consumer"; }
+        }
     }
 }

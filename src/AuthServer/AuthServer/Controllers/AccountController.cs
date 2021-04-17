@@ -25,7 +25,14 @@ namespace AuthServer.Controllers
         private readonly IClientStore _clientStore;
         private readonly IEventService _events;
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IIdentityServerInteractionService interaction, IAuthenticationSchemeProvider schemeProvider, IClientStore clientStore, IEventService events)
+        public AccountController(
+            SignInManager<AppUser> signInManager, 
+            UserManager<AppUser> userManager, 
+            IIdentityServerInteractionService interaction, 
+            IAuthenticationSchemeProvider schemeProvider, 
+            IClientStore clientStore, 
+            IEventService events
+        )
         {
             _userManager = userManager;
             _interaction = interaction;
@@ -108,7 +115,7 @@ namespace AuthServer.Controllers
                             IsPersistent = true,
                             ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
                         };
-                    };
+                    }
 
                     // issue authentication cookie with subject ID and username
                     await HttpContext.SignInAsync(new IdentityServer4.IdentityServerUser(user.Id), props);
@@ -156,9 +163,7 @@ namespace AuthServer.Controllers
         [Route("api/[controller]")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestViewModel model)
         {
-            //var aVal = 0; var blowUp = 1 / aVal;
-
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || model == null)
             {
                 return BadRequest(ModelState);
             }

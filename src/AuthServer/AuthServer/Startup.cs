@@ -46,12 +46,12 @@ namespace AuthServer
                     options.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("Default"), sql => sql.MigrationsAssembly("AuthServer.Infrastructure"));
                     // this enable automatic token cleanup. this is optional
                     options.EnableTokenCleanup = true;
-                    options.TokenCleanupInterval = 30; // interval in seconds
+                    options.TokenCleanupInterval = 3600; // interval in seconds
                 })
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddInMemoryApiScopes(Config.GetApiScopes())
+                .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiResources(Config.ApiResources)
+                .AddInMemoryClients(Config.Clients)
+                .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddAspNetIdentity<AppUser>();
 
             services.AddTransient<IProfileService, IdentityClaimsProfileService>();
