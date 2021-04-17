@@ -46,7 +46,7 @@ namespace AuthServer
                     options.ConfigureDbContext = builder => builder.UseNpgsql(Configuration.GetConnectionString("Default"), sql => sql.MigrationsAssembly("AuthServer.Infrastructure"));
                     // this enable automatic token cleanup. this is optional
                     options.EnableTokenCleanup = true;
-                    options.TokenCleanupInterval = 30; // interval in seconds
+                    options.TokenCleanupInterval = 3600; // interval in seconds
                 })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiResources(Config.ApiResources)
